@@ -1,0 +1,1204 @@
+{
+  "platform": "Windows AMD64",
+  "processor": "Intel64 Family 6 Model 143 Stepping 8, GenuineIntel",
+  "date": "2026-10-19T11:12:38.749336+00:00",
+  "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-pc-windows-msvc\nrelease: 1.94.0\nLLVM version: 21.1.8\n",
+  "profile": "Release opt-level=3, thin LTO, codegen-units=1, target-cpu=native, statistics compiled OFF",
+  "native_linkage": "static native libraries with dynamic MSVC CRT",
+  "source_sha256": "35183933e9dd1a144faf37448b7113cc5cb19f643676d6299f6f3a09724ec298",
+  "binary_sha256": {
+    "rust": "48baedfa2218476934c41d99dfacf1181f3b8d8e7893a889ebca9ab97e8ac999",
+    "standard": "8d54247fdb0b0dfef370a371c0eee6b3bb125b5ad946fbd5c8cbfcf96095a698",
+    "mimalloc": "bd0f1bd5c5c02258e672a80114f8c1ff8addf0d020d6437373f96e198e5ec616",
+    "jemalloc": "05d19a302d00027dca60a3ca17eb1d94577b3faba492a2d110bef7a63bbd7b2f"
+  },
+  "jemalloc_sdk_sha256": "a31eb884de8ed853d0e7e5f7f3a59e902cba342defe353737d8290c35ef59a1f",
+  "submodules": [
+    "1644e70ebc31746ca6b20ccf8cf5865c8438238e external/allocator-api2 (heads/main)",
+    " 0e9129157d261cf6bda86d5dcd9eba94f3cd0f96 external/jemallocator (0e91291)",
+    " 81034ce1f1373e37dc865038e1bc8eeecf559ce8 external/jemallocator/jemalloc-sys/jemalloc (81034ce)",
+    " a35cc759c071fd7bd586685048367839002b95dd external/mimalloc-rust (heads/master)",
+    " 02a2f5df9d7d46d30263b83832eebeeab62dc5fe external/mimalloc-rust/libmimalloc-sys/c_src/mimalloc/v2 (02a2f5d)",
+    " 30b2d9d89099bee08e9f67a1ffb3e12e7ba45227 external/mimalloc-rust/libmimalloc-sys/c_src/mimalloc/v3 (30b2d9d)"
+  ],
+  "affinity": {
+    "pinned": true,
+    "logical_cpu": 2
+  },
+  "runs": 3,
+  "iterations": 200000,
+  "backend_order": [
+    [
+      "standard",
+      "rust",
+      "jemalloc",
+      "mimalloc"
+    ],
+    [
+      "rust",
+      "mimalloc",
+      "jemalloc",
+      "standard"
+    ],
+    [
+      "standard",
+      "rust",
+      "jemalloc",
+      "mimalloc"
+    ]
+  ],
+  "rows": [
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 9.2895,
+      "unified_ns": 9.629,
+      "native_over_unified_percent": 96.47419254335861,
+      "native_range_ns": [
+        7.9775,
+        11.7925
+      ],
+      "unified_range_ns": [
+        7.08,
+        10.993
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 13.9325,
+      "unified_ns": 13.6945,
+      "native_over_unified_percent": 101.73792398408119,
+      "native_range_ns": [
+        11.78,
+        17.51
+      ],
+      "unified_range_ns": [
+        12.0245,
+        17.2585
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 8.1165,
+      "unified_ns": 8.2065,
+      "native_over_unified_percent": 98.9033083531347,
+      "native_range_ns": [
+        7.2135,
+        10.153
+      ],
+      "unified_range_ns": [
+        7.238,
+        11.473
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 13.8495,
+      "unified_ns": 13.307,
+      "native_over_unified_percent": 104.07680168332456,
+      "native_range_ns": [
+        11.785,
+        16.809
+      ],
+      "unified_range_ns": [
+        11.8495,
+        16.491
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 9.078,
+      "unified_ns": 9.1355,
+      "native_over_unified_percent": 99.37058726944336,
+      "native_range_ns": [
+        7.666,
+        11.909
+      ],
+      "unified_range_ns": [
+        7.526,
+        11.395
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 14.6735,
+      "unified_ns": 13.6915,
+      "native_over_unified_percent": 107.17233319943031,
+      "native_range_ns": [
+        12.069,
+        18.001
+      ],
+      "unified_range_ns": [
+        11.97,
+        17.047
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 12.289,
+      "unified_ns": 13.132,
+      "native_over_unified_percent": 93.58056655498021,
+      "native_range_ns": [
+        10.7555,
+        14.477
+      ],
+      "unified_range_ns": [
+        10.5245,
+        15.1055
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 24.883,
+      "unified_ns": 23.772,
+      "native_over_unified_percent": 104.67356553928992,
+      "native_range_ns": [
+        18.2835,
+        29.426
+      ],
+      "unified_range_ns": [
+        20.056,
+        28.9055
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 255.741,
+      "unified_ns": 254.337,
+      "native_over_unified_percent": 100.55202349638472,
+      "native_range_ns": [
+        236.5165,
+        305.225
+      ],
+      "unified_range_ns": [
+        232.9435,
+        302.3235
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 251.9725,
+      "unified_ns": 252.707,
+      "native_over_unified_percent": 99.7093471886414,
+      "native_range_ns": [
+        236.863,
+        299.58
+      ],
+      "unified_range_ns": [
+        235.631,
+        296.726
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "heap",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 260.117,
+      "unified_ns": 266.6425,
+      "native_over_unified_percent": 97.55271571486168,
+      "native_range_ns": [
+        227.277,
+        299.87
+      ],
+      "unified_range_ns": [
+        226.57,
+        301.041
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "object",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 9.2965,
+      "unified_ns": 9.384,
+      "native_over_unified_percent": 99.06756180733163,
+      "native_range_ns": [
+        7.2275,
+        12.366
+      ],
+      "unified_range_ns": [
+        7.858,
+        12.7395
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "resize",
+      "bytes": 512,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 70.224,
+      "unified_ns": 72.244,
+      "native_over_unified_percent": 97.20392004872377,
+      "native_range_ns": [
+        61.4135,
+        80.3845
+      ],
+      "unified_range_ns": [
+        60.612,
+        86.0975
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "stack",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 1.122,
+      "unified_ns": 1.477,
+      "native_over_unified_percent": 75.96479350033853,
+      "native_range_ns": [
+        0.966,
+        2.054
+      ],
+      "unified_range_ns": [
+        1.061,
+        2.536
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "vector",
+      "bytes": 2048,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 167.9526,
+      "unified_ns": 159.0588,
+      "native_over_unified_percent": 105.59151709933685,
+      "native_range_ns": [
+        132.5493,
+        197.3281
+      ],
+      "unified_range_ns": [
+        139.2172,
+        225.4315
+      ]
+    },
+    {
+      "backend": "jemalloc",
+      "case": "zeroed",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 16.43,
+      "unified_ns": 15.339,
+      "native_over_unified_percent": 107.1125888258687,
+      "native_range_ns": [
+        13.135,
+        19.187
+      ],
+      "unified_range_ns": [
+        13.198,
+        19.767
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 5.317,
+      "unified_ns": 5.221,
+      "native_over_unified_percent": 101.83872821298603,
+      "native_range_ns": [
+        3.821,
+        7.7135
+      ],
+      "unified_range_ns": [
+        3.813,
+        7.2455
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 14.472,
+      "unified_ns": 14.4865,
+      "native_over_unified_percent": 99.89990680978842,
+      "native_range_ns": [
+        12.6435,
+        17.4285
+      ],
+      "unified_range_ns": [
+        12.249,
+        17.094
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 5.2745,
+      "unified_ns": 5.5255,
+      "native_over_unified_percent": 95.45742466745091,
+      "native_range_ns": [
+        3.8625,
+        7.321
+      ],
+      "unified_range_ns": [
+        3.8685,
+        7.605
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 5.286,
+      "unified_ns": 5.4355,
+      "native_over_unified_percent": 97.24956305767638,
+      "native_range_ns": [
+        4.1525,
+        7.579
+      ],
+      "unified_range_ns": [
+        4.3225,
+        8.263
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 5.792,
+      "unified_ns": 5.633,
+      "native_over_unified_percent": 102.82265222794247,
+      "native_range_ns": [
+        4.5885,
+        7.0985
+      ],
+      "unified_range_ns": [
+        4.441,
+        7.985
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 5.56,
+      "unified_ns": 6.598,
+      "native_over_unified_percent": 84.2679599878751,
+      "native_range_ns": [
+        4.3715,
+        8.599
+      ],
+      "unified_range_ns": [
+        4.3855,
+        8.5035
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 18.531,
+      "unified_ns": 18.1845,
+      "native_over_unified_percent": 101.90546894333086,
+      "native_range_ns": [
+        15.4645,
+        22.97
+      ],
+      "unified_range_ns": [
+        15.6335,
+        22.641
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 21.3365,
+      "unified_ns": 21.6715,
+      "native_over_unified_percent": 98.45419098816417,
+      "native_range_ns": [
+        18.6835,
+        25.3965
+      ],
+      "unified_range_ns": [
+        19.334,
+        28.1325
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 19.3555,
+      "unified_ns": 19.361,
+      "native_over_unified_percent": 99.97159237642683,
+      "native_range_ns": [
+        16.209,
+        22.727
+      ],
+      "unified_range_ns": [
+        15.7675,
+        22.7515
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 23.222,
+      "unified_ns": 24.196,
+      "native_over_unified_percent": 95.97454124648702,
+      "native_range_ns": [
+        20.192,
+        28.946
+      ],
+      "unified_range_ns": [
+        20.0435,
+        29.857
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "heap",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 5.98,
+      "unified_ns": 5.8785,
+      "native_over_unified_percent": 101.72663094326786,
+      "native_range_ns": [
+        4.6245,
+        7.2905
+      ],
+      "unified_range_ns": [
+        4.619,
+        7.1415
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "object",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 5.013,
+      "unified_ns": 4.9905,
+      "native_over_unified_percent": 100.45085662759243,
+      "native_range_ns": [
+        3.7545,
+        7.195
+      ],
+      "unified_range_ns": [
+        3.739,
+        8.4685
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "resize",
+      "bytes": 512,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 19.3595,
+      "unified_ns": 19.041,
+      "native_over_unified_percent": 101.67270626542724,
+      "native_range_ns": [
+        16.2505,
+        22.0005
+      ],
+      "unified_range_ns": [
+        16.3175,
+        22.5945
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "stack",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 1.2555,
+      "unified_ns": 1.871,
+      "native_over_unified_percent": 67.10315339390701,
+      "native_range_ns": [
+        1.0425,
+        1.439
+      ],
+      "unified_range_ns": [
+        1.3165,
+        2.034
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "vector",
+      "bytes": 2048,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 164.2567,
+      "unified_ns": 162.0248,
+      "native_over_unified_percent": 101.37750517204773,
+      "native_range_ns": [
+        146.3551,
+        195.1861
+      ],
+      "unified_range_ns": [
+        144.3031,
+        202.9019
+      ]
+    },
+    {
+      "backend": "mimalloc",
+      "case": "zeroed",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 9.2065,
+      "unified_ns": 9.257,
+      "native_over_unified_percent": 99.45446688992115,
+      "native_range_ns": [
+        8.305,
+        11.5145
+      ],
+      "unified_range_ns": [
+        7.4645,
+        11.184
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 28.9595,
+      "unified_ns": 29.9295,
+      "native_over_unified_percent": 96.75905043518935,
+      "native_range_ns": [
+        25.2995,
+        38.914
+      ],
+      "unified_range_ns": [
+        25.383,
+        38.1245
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 31.209,
+      "unified_ns": 30.885,
+      "native_over_unified_percent": 101.04905293831956,
+      "native_range_ns": [
+        26.227,
+        37.754
+      ],
+      "unified_range_ns": [
+        26.8445,
+        35.9495
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 29.7065,
+      "unified_ns": 29.3735,
+      "native_over_unified_percent": 101.13367491105929,
+      "native_range_ns": [
+        25.829,
+        37.7375
+      ],
+      "unified_range_ns": [
+        25.8235,
+        35.49
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 31.069,
+      "unified_ns": 30.6635,
+      "native_over_unified_percent": 101.32241916284835,
+      "native_range_ns": [
+        26.381,
+        38.4755
+      ],
+      "unified_range_ns": [
+        27.0225,
+        38.315
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 30.0525,
+      "unified_ns": 31.0375,
+      "native_over_unified_percent": 96.82641965364478,
+      "native_range_ns": [
+        26.1245,
+        38.349
+      ],
+      "unified_range_ns": [
+        26.7325,
+        36.8455
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 29.3185,
+      "unified_ns": 30.9905,
+      "native_over_unified_percent": 94.60479824462335,
+      "native_range_ns": [
+        27.0905,
+        35.9235
+      ],
+      "unified_range_ns": [
+        26.5335,
+        36.9565
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 31.132,
+      "unified_ns": 30.9905,
+      "native_over_unified_percent": 100.45659153611591,
+      "native_range_ns": [
+        26.967,
+        41.6795
+      ],
+      "unified_range_ns": [
+        26.6775,
+        41.2815
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 31.598,
+      "unified_ns": 30.5015,
+      "native_over_unified_percent": 103.59490516859826,
+      "native_range_ns": [
+        27.1085,
+        36.43
+      ],
+      "unified_range_ns": [
+        26.6575,
+        37.466
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 103.9055,
+      "unified_ns": 103.9505,
+      "native_over_unified_percent": 99.95671016493426,
+      "native_range_ns": [
+        91.6635,
+        119.947
+      ],
+      "unified_range_ns": [
+        90.359,
+        116.584
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 104.012,
+      "unified_ns": 102.288,
+      "native_over_unified_percent": 101.68543719693415,
+      "native_range_ns": [
+        89.6675,
+        126.513
+      ],
+      "unified_range_ns": [
+        93.8495,
+        119.518
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "heap",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 28.6855,
+      "unified_ns": 32.901,
+      "native_over_unified_percent": 87.18731953436065,
+      "native_range_ns": [
+        25.1355,
+        37.776
+      ],
+      "unified_range_ns": [
+        29.7865,
+        39.886
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "object",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 29.5035,
+      "unified_ns": 29.3265,
+      "native_over_unified_percent": 100.60354969055292,
+      "native_range_ns": [
+        25.406,
+        38.954
+      ],
+      "unified_range_ns": [
+        25.8275,
+        37.109
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "resize",
+      "bytes": 512,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 67.1845,
+      "unified_ns": 69.0485,
+      "native_over_unified_percent": 97.30044823566043,
+      "native_range_ns": [
+        61.802,
+        76.856
+      ],
+      "unified_range_ns": [
+        63.292,
+        81.2265
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "stack",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 1.1035,
+      "unified_ns": 1.383,
+      "native_over_unified_percent": 79.79031091829356,
+      "native_range_ns": [
+        0.8945,
+        1.204
+      ],
+      "unified_range_ns": [
+        1.215,
+        1.6705
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "vector",
+      "bytes": 2048,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 164.9507,
+      "unified_ns": 174.2825,
+      "native_over_unified_percent": 94.64558977522127,
+      "native_range_ns": [
+        151.637,
+        201.308
+      ],
+      "unified_range_ns": [
+        152.7329,
+        213.4037
+      ]
+    },
+    {
+      "backend": "rust",
+      "case": "zeroed",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 30.8015,
+      "unified_ns": 31.7025,
+      "native_over_unified_percent": 97.15795284283574,
+      "native_range_ns": [
+        27.474,
+        39.529
+      ],
+      "unified_range_ns": [
+        27.744,
+        39.4665
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 28.74,
+      "unified_ns": 28.721,
+      "native_over_unified_percent": 100.06615368545664,
+      "native_range_ns": [
+        26.268,
+        39.4835
+      ],
+      "unified_range_ns": [
+        25.97,
+        39.4795
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 16,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 29.9325,
+      "unified_ns": 30.37,
+      "native_over_unified_percent": 98.5594336516299,
+      "native_range_ns": [
+        27.084,
+        33.9895
+      ],
+      "unified_range_ns": [
+        27.2055,
+        39.6785
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 30.681,
+      "unified_ns": 31.3195,
+      "native_over_unified_percent": 97.96133399319913,
+      "native_range_ns": [
+        25.935,
+        36.1605
+      ],
+      "unified_range_ns": [
+        26.6735,
+        38.283
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 64,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 31.569,
+      "unified_ns": 30.9315,
+      "native_over_unified_percent": 102.06100577081617,
+      "native_range_ns": [
+        28.0015,
+        37.7385
+      ],
+      "unified_range_ns": [
+        27.221,
+        38.0675
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 32.1985,
+      "unified_ns": 31.037,
+      "native_over_unified_percent": 103.74230756838614,
+      "native_range_ns": [
+        26.8905,
+        38.8695
+      ],
+      "unified_range_ns": [
+        26.879,
+        38.048
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 256,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 31.4585,
+      "unified_ns": 30.3985,
+      "native_over_unified_percent": 103.487014161883,
+      "native_range_ns": [
+        27.8615,
+        36.637
+      ],
+      "unified_range_ns": [
+        27.0295,
+        38.915
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 29.884,
+      "unified_ns": 30.6285,
+      "native_over_unified_percent": 97.56925739099206,
+      "native_range_ns": [
+        26.5205,
+        39.064
+      ],
+      "unified_range_ns": [
+        27.5235,
+        40.1025
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 4096,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 31.7155,
+      "unified_ns": 31.3535,
+      "native_over_unified_percent": 101.15457604414179,
+      "native_range_ns": [
+        28.448,
+        38.281
+      ],
+      "unified_range_ns": [
+        28.601,
+        36.804
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 103.104,
+      "unified_ns": 101.157,
+      "native_over_unified_percent": 101.92473086390463,
+      "native_range_ns": [
+        89.2555,
+        125.122
+      ],
+      "unified_range_ns": [
+        94.6175,
+        115.0905
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "global",
+      "bytes": 65536,
+      "alignment": 64,
+      "samples": 27,
+      "native_ns": 104.4535,
+      "unified_ns": 105.779,
+      "native_over_unified_percent": 98.74691573941898,
+      "native_range_ns": [
+        91.6815,
+        128.7985
+      ],
+      "unified_range_ns": [
+        94.5255,
+        132.627
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "heap",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 31.8205,
+      "unified_ns": 34.845,
+      "native_over_unified_percent": 91.32013201320132,
+      "native_range_ns": [
+        26.347,
+        37.575
+      ],
+      "unified_range_ns": [
+        30.9115,
+        44.264
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "object",
+      "bytes": 64,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 28.814,
+      "unified_ns": 29.2975,
+      "native_over_unified_percent": 98.34968853997782,
+      "native_range_ns": [
+        26.031,
+        36.5985
+      ],
+      "unified_range_ns": [
+        25.779,
+        34.8475
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "resize",
+      "bytes": 512,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 63.6125,
+      "unified_ns": 64.7355,
+      "native_over_unified_percent": 98.26524858848698,
+      "native_range_ns": [
+        54.9565,
+        74.0745
+      ],
+      "unified_range_ns": [
+        55.109,
+        72.356
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "stack",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 0.969,
+      "unified_ns": 1.316,
+      "native_over_unified_percent": 73.63221884498479,
+      "native_range_ns": [
+        0.842,
+        1.147
+      ],
+      "unified_range_ns": [
+        1.055,
+        1.727
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "vector",
+      "bytes": 2048,
+      "alignment": 8,
+      "samples": 27,
+      "native_ns": 171.5526,
+      "unified_ns": 173.7545,
+      "native_over_unified_percent": 98.7327522452656,
+      "native_range_ns": [
+        153.3249,
+        201.754
+      ],
+      "unified_range_ns": [
+        152.8969,
+        214.9037
+      ]
+    },
+    {
+      "backend": "standard",
+      "case": "zeroed",
+      "bytes": 64,
+      "alignment": 16,
+      "samples": 27,
+      "native_ns": 36.6075,
+      "unified_ns": 35.4695,
+      "native_over_unified_percent": 103.20839030716533,
+      "native_range_ns": [
+        28.781,
+        46.7725
+      ],
+      "unified_range_ns": [
+        30.2735,
+        44.9695
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+name: build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  check:
+    name: ${{ matrix.os }} / ${{ matrix.backend }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022, macos-15]
+        backend: [rust, standard, mimalloc, jemalloc]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry/
+            target/
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ matrix.backend }}-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}
+      - name: Rust tools
+        shell: bash
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt --component clippy
+          rustup default stable
+      - name: Unix jemalloc build tools
+        if: matrix.backend == 'jemalloc' && runner.os != 'Windows'
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y autoconf make gcc g++
+          elif ! command -v autoconf >/dev/null; then
+            brew install autoconf
+          fi
+      - uses: actions/checkout@v5
+        if: matrix.backend == 'jemalloc' && runner.os == 'Windows'
+        with:
+          repository: microsoft/vcpkg
+          ref: 2273a28f34ce5aac8be50b3b6b44da7fc1722e06
+          path: artifacts/vcpkg
+          persist-credentials: false
+      - name: Static MSVC jemalloc SDK
+        if: matrix.backend == 'jemalloc' && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:VCPKG_ROOT = "$env:GITHUB_WORKSPACE/artifacts/vcpkg"
+          & "$env:VCPKG_ROOT/bootstrap-vcpkg.bat" -disableMetrics
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & ./tools/native-jemalloc.ps1
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Correctness, ownership, release, examples and external consumer
+        shell: bash
+        run: python tools/validate.py --backend '${{ matrix.backend }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-${{ matrix.os }}-${{ matrix.backend }}
+          path: artifacts/validation/
+          retention-days: 14
+  miri:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+      - shell: bash
+        run: |
+          rustup toolchain install nightly --profile minimal --component miri
+          MIRIFLAGS=-Zmiri-strict-provenance cargo +nightly miri test --lib --tests
+  msrv:
+    name: Rust 1.85
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - shell: bash
+        run: |
+          rustup toolchain install 1.85.0 --profile minimal
+          cargo +1.85.0 test --locked

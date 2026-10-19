@@ -1,0 +1,9 @@
+[package]
+name = "unimemory-existing-allocator"
+version = "0.0.1"
+edition = "2021"
+publish = false
+
+[dependencies]
+unimemory = { path = "../..", features = ["rust"] }
+mimalloc = { path = "../../external/mimalloc-rust" }

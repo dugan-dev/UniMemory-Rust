@@ -1,0 +1,8 @@
+/target/
+/artifacts/
+/.vscode/
+/.idea/
+/tests/consumer/Cargo.lock
+__pycache__/
+*.py[cod]
+/tests/existing-allocator/Cargo.lock

@@ -1,0 +1,48 @@
+[package]
+name = "unimemory"
+version = "0.0.1"
+edition = "2021"
+rust-version = "1.85"
+description = "Unified Rust memory resources with Rust, Standard, mimalloc and jemalloc backends"
+license = "MIT"
+readme = "README.md"
+build = "build.rs"
+exclude = ["target/", "artifacts/"]
+
+[features]
+default = ["statistics", "containers"]
+rust = []
+standard = []
+statistics = []
+containers = ["dep:allocator-api2"]
+mimalloc = ["dep:libmimalloc-sys"]
+jemalloc = ["dep:tikv-jemalloc-sys"]
+benchmark = ["containers"]
+
+[dependencies]
+allocator-api2 = { path = "external/allocator-api2", version = "=0.4.0", optional = true }
+libmimalloc-sys = { path = "external/mimalloc-rust/libmimalloc-sys", version = "=0.1.49", optional = true, default-features = false, features = ["extended"] }
+
+[build-dependencies]
+cc = "=1.9.0"
+
+[target.'cfg(not(target_env = "msvc"))'.dependencies]
+tikv-jemalloc-sys = { path = "external/jemallocator/jemalloc-sys", version = "=0.7.0", optional = true, default-features = false }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+[[bench]]
+name = "allocation"
+path = "benches/compare.rs"
+harness = false
+required-features = ["benchmark"]
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+missing_docs = "warn"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "deny"

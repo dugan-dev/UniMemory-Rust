@@ -1,0 +1,299 @@
+{
+  "date": "2026-10-19T11:14:04.534082+00:00",
+  "platform": "Windows x64 / MSVC",
+  "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-pc-windows-msvc\nrelease: 1.94.0\nLLVM version: 21.1.8\n",
+  "source_sha256": "35183933e9dd1a144faf37448b7113cc5cb19f643676d6299f6f3a09724ec298",
+  "validation": {
+    "backends": [
+      "rust",
+      "standard",
+      "mimalloc",
+      "jemalloc"
+    ],
+    "checks": [
+      {
+        "check": "format",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "rust-debug",
+        "passed": true,
+        "tests": 43,
+        "ignored": 0
+      },
+      {
+        "check": "rust-release",
+        "passed": true,
+        "tests": 43,
+        "ignored": 0
+      },
+      {
+        "check": "rust-statistics-off",
+        "passed": true,
+        "tests": 38,
+        "ignored": 0
+      },
+      {
+        "check": "rust-clippy",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "rust-example-basic",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "rust-example-containers",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "rust-example-global_allocator",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "rust-consumer",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "rust-existing-allocator",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "standard-debug",
+        "passed": true,
+        "tests": 42,
+        "ignored": 0
+      },
+      {
+        "check": "standard-release",
+        "passed": true,
+        "tests": 42,
+        "ignored": 0
+      },
+      {
+        "check": "standard-statistics-off",
+        "passed": true,
+        "tests": 37,
+        "ignored": 0
+      },
+      {
+        "check": "standard-clippy",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "standard-example-basic",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "standard-example-containers",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "standard-example-global_allocator",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "standard-consumer",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-debug",
+        "passed": true,
+        "tests": 42,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-release",
+        "passed": true,
+        "tests": 42,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-statistics-off",
+        "passed": true,
+        "tests": 37,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-clippy",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-example-basic",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-example-containers",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-example-global_allocator",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "mimalloc-consumer",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-debug",
+        "passed": true,
+        "tests": 42,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-release",
+        "passed": true,
+        "tests": 42,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-statistics-off",
+        "passed": true,
+        "tests": 37,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-clippy",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-example-basic",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-example-containers",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-example-global_allocator",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "jemalloc-consumer",
+        "passed": true,
+        "tests": 0,
+        "ignored": 0
+      },
+      {
+        "check": "minimal",
+        "passed": true,
+        "tests": 32,
+        "ignored": 0
+      },
+      {
+        "check": "reject-conflicting-backends",
+        "passed": true,
+        "tests": 1,
+        "ignored": 0
+      }
+    ],
+    "test_executions": 520
+  },
+  "benchmark_profiles": {
+    "rust": {
+      "passed": true,
+      "test_executions": 32,
+      "clippy_passed": true
+    },
+    "standard": {
+      "passed": true,
+      "test_executions": 31,
+      "clippy_passed": true
+    },
+    "mimalloc": {
+      "passed": true,
+      "test_executions": 31,
+      "clippy_passed": true
+    },
+    "jemalloc": {
+      "passed": true,
+      "test_executions": 31,
+      "clippy_passed": true
+    }
+  },
+  "miri": {
+    "passed": true,
+    "test_executions": 37,
+    "interpreted_target": "x86_64-unknown-linux-gnu",
+    "flags": "-Zmiri-strict-provenance",
+    "native_ffi_executed": false
+  },
+  "ci": {
+    "configured": true,
+    "profiles": 12,
+    "miri_job": true,
+    "msrv_job": true,
+    "workflow_url": "https://github.com/dugan-dev/UniMemory-Rust/actions/workflows/build.yml",
+    "remote_results_included": false
+  },
+  "original_unimemory_modified": false,
+  "release_preparation": {
+    "date": "2026-10-19T12:01:08.847165+00:00",
+    "minimum_rust": "1.85.0",
+    "minimum_rust_profiles": {
+      "rust": {
+        "passed": true,
+        "test_executions": 43
+      },
+      "standard": {
+        "passed": true,
+        "test_executions": 42
+      },
+      "mimalloc": {
+        "passed": true,
+        "test_executions": 42
+      },
+      "jemalloc": {
+        "passed": true,
+        "test_executions": 42
+      }
+    },
+    "readme_examples": {
+      "passed": true,
+      "backends": 4,
+      "executions": 12
+    },
+    "rustdoc_warnings_denied": true
+  }
+}

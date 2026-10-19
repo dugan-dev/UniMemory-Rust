@@ -1,0 +1,28 @@
+UniMemory Rust is an independent Rust implementation of the unified frontend
+design from https://github.com/dugan-dev/UniMemory (MIT, copyright dugan-dev).
+The original UniMemory repository is not included or modified.
+
+Pinned source dependencies are Git submodules, not copied into the parent Git tree:
+
+allocator-api2 0.4.0
+https://github.com/zakarumych/allocator-api2
+revision 1644e70ebc31746ca6b20ccf8cf5865c8438238e
+MIT OR Apache-2.0; licenses remain in external/allocator-api2.
+
+libmimalloc-sys 0.1.49 / mimalloc v3.3.2
+https://github.com/purpleprotocol/mimalloc_rust
+revision a35cc759c071fd7bd586685048367839002b95dd
+native mimalloc revision 30b2d9d89099bee08e9f67a1ffb3e12e7ba45227
+MIT; licenses remain in external/mimalloc-rust and its native submodules.
+
+tikv-jemalloc-sys 0.7.0 / jemalloc 5.3.1
+https://github.com/tikv/jemallocator
+revision 0e9129157d261cf6bda86d5dcd9eba94f3cd0f96
+native jemalloc revision 81034ce1f1373e37dc865038e1bc8eeecf559ce8
+MIT/Apache-2.0 wrapper; native jemalloc BSD-2-Clause. Licenses remain in submodules.
+Windows MSVC uses a separately built prefixed jemalloc SDK; no SDK binaries are
+committed. Redistribution of such binaries must retain the selected SDK notices.
+
+The Standard backend's small C ABI bridge is original project code, MIT licensed.
+The cc crate is a Cargo build dependency, MIT OR Apache-2.0. Cargo.lock fixes the
+resolved build-tool dependencies. Optional chart generation uses matplotlib.

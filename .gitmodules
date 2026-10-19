@@ -1,0 +1,12 @@
+[submodule "external/mimalloc-rust"]
+	path = external/mimalloc-rust
+	url = https://github.com/purpleprotocol/mimalloc_rust.git
+	shallow = true
+[submodule "external/jemallocator"]
+	path = external/jemallocator
+	url = https://github.com/tikv/jemallocator.git
+	shallow = true
+[submodule "external/allocator-api2"]
+	path = external/allocator-api2
+	url = https://github.com/zakarumych/allocator-api2.git
+	shallow = true
