@@ -19,7 +19,7 @@
 在已有 Rust 项目中添加依赖：
 
 ```sh
-cargo add unimemory --git https://github.com/dugan-dev/UniMemory-Rust
+cargo --config net.git-fetch-with-cli=true add unimemory --git https://github.com/dugan-dev/UniMemory-Rust
 ```
 
 ```rust

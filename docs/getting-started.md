@@ -11,6 +11,15 @@ Cargo fetches the repository and its submodules. Commit the application's Cargo.
 
 Cargo 会获取仓库及子模块。提交应用的 Cargo.lock 即可锁定版本。本库尚未发布到 crates.io；私人仓库需要 Git 访问权限，必要时设置 `CARGO_NET_GIT_FETCH_WITH_CLI=true` 复用本机 Git 凭据。
 
+To reuse Git authentication for future updates, add this to the application's `.cargo/config.toml`.
+
+需要持续复用 Git 认证时，在应用的 `.cargo/config.toml` 中添加：
+
+```toml
+[net]
+git-fetch-with-cli = true
+```
+
 ## Local checkout / 本地源码
 
 ```sh

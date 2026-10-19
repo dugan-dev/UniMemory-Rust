@@ -2,6 +2,7 @@
 /artifacts/
 /.vscode/
 /.idea/
+/.ruff_cache/
 /tests/consumer/Cargo.lock
 __pycache__/
 *.py[cod]

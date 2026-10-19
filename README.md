@@ -19,7 +19,7 @@ Unified memory allocation with Rust, Standard, mimalloc or jemalloc. Select a ba
 Add the dependency to an existing Rust project:
 
 ```sh
-cargo add unimemory --git https://github.com/dugan-dev/UniMemory-Rust
+cargo --config net.git-fetch-with-cli=true add unimemory --git https://github.com/dugan-dev/UniMemory-Rust
 ```
 
 ```rust

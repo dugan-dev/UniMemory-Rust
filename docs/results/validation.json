@@ -294,6 +294,18 @@
       "backends": 4,
       "executions": 12
     },
-    "rustdoc_warnings_denied": true
+    "rustdoc_warnings_denied": true,
+    "private_git_dependency": {
+      "passed": true,
+      "backends": [
+        "rust",
+        "standard",
+        "mimalloc",
+        "jemalloc"
+      ],
+      "recursive_submodules": true,
+      "cargo_git_fetch_with_cli": true,
+      "source_commit": "221fe5fd7abb69118be6ee8c648676023e540b17"
+    }
   }
 }
