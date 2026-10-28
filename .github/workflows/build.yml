@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   check:
-    name: ${{ matrix.os }} / ${{ matrix.backend }}
+    name: check / ${{ matrix.os }} / ${{ matrix.backend }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
@@ -63,7 +63,8 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           & ./tools/native-jemalloc.ps1
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Correctness, ownership, release, examples and external consumer
+          "UNIMEMORY_JEMALLOC_DIR=$((Resolve-Path artifacts/native-sdk/x64-windows-static-md).Path)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Format, correctness, release, examples, consumers and guards
         shell: bash
         run: python tools/validate.py --backend '${{ matrix.backend }}'
       - uses: actions/upload-artifact@v4
@@ -72,9 +73,78 @@ jobs:
           name: validation-${{ matrix.os }}-${{ matrix.backend }}
           path: artifacts/validation/
           retention-days: 14
+  benchmark:
+    name: bench / ${{ matrix.os }} / ${{ matrix.backend }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022, macos-15]
+        backend: [standard, mimalloc, jemalloc]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry/
+            target/
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-bench-${{ matrix.backend }}-${{ hashFiles('Cargo.lock', 'Cargo.toml') }}
+      - name: Rust tools
+        shell: bash
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+      - name: Unix jemalloc build tools
+        if: matrix.backend == 'jemalloc' && runner.os != 'Windows'
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y autoconf make gcc g++
+          elif ! command -v autoconf >/dev/null; then
+            brew install autoconf
+          fi
+      - uses: actions/checkout@v5
+        if: matrix.backend == 'jemalloc' && runner.os == 'Windows'
+        with:
+          repository: microsoft/vcpkg
+          ref: 2273a28f34ce5aac8be50b3b6b44da7fc1722e06
+          path: artifacts/vcpkg
+          persist-credentials: false
+      - name: Static MSVC jemalloc SDK
+        if: matrix.backend == 'jemalloc' && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:VCPKG_ROOT = "$env:GITHUB_WORKSPACE/artifacts/vcpkg"
+          & "$env:VCPKG_ROOT/bootstrap-vcpkg.bat" -disableMetrics
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & ./tools/native-jemalloc.ps1
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          $prefix = (Resolve-Path artifacts/native-sdk/x64-windows-static-md).Path
+          "UNIMEMORY_JEMALLOC_DIR=$prefix" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "$prefix/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Same-binary benchmark and overhead guard
+        shell: bash
+        env:
+          UNIMEMORY_BENCH_ITERATIONS: '20000'
+        run: python tools/bench_smoke.py '${{ matrix.backend }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-${{ matrix.os }}-${{ matrix.backend }}
+          path: artifacts/benchmarks/
+          retention-days: 14
   miri:
+    name: miri / ubuntu
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
         with:
@@ -82,7 +152,9 @@ jobs:
       - shell: bash
         run: |
           rustup toolchain install nightly --profile minimal --component miri
-          MIRIFLAGS=-Zmiri-strict-provenance cargo +nightly miri test --lib --tests
+          MIRIFLAGS=-Zmiri-strict-provenance cargo +nightly miri test --lib \
+            --test config --test containers --test interface --test resources \
+            --test standard_backend --test statistics
   msrv:
     name: Rust 1.85
     runs-on: ubuntu-24.04

@@ -172,8 +172,8 @@ mod selected {
 mod selected {
     use super::*;
     #[cfg(target_env = "msvc")]
-    use std::ffi::c_char;
-    use std::ffi::{c_int, c_void, CStr};
+    use std::ffi::{c_char, c_void};
+    use std::ffi::{c_int, CStr};
     #[cfg(not(target_env = "msvc"))]
     use tikv_jemalloc_sys::{calloc, dallocx, free, mallctl, malloc, mallocx, rallocx, realloc};
     #[cfg(target_env = "msvc")]
