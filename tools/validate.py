@@ -119,7 +119,6 @@ def main():
             [
                 "cargo",
                 "run",
-                "--offline",
                 "--manifest-path",
                 "tests/consumer/Cargo.toml",
                 *flags,
@@ -132,7 +131,6 @@ def main():
                 [
                     "cargo",
                     "run",
-                    "--offline",
                     "--manifest-path",
                     "tests/existing-allocator/Cargo.toml",
                 ],

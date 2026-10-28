@@ -10,7 +10,7 @@ build = "build.rs"
 exclude = ["target/", "artifacts/"]
 
 [features]
-default = ["standard", "statistics", "containers"]
+default = ["statistics", "containers"]
 standard = []
 statistics = []
 containers = ["dep:allocator-api2"]
