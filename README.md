@@ -68,7 +68,14 @@ values.extend(0u64..1024);
 assert_eq!(memory.statistics().live_bytes, values.capacity() * 8);
 ```
 
-`unimemory::Vec/Box` come from allocator-api2. Standard containers can use `NativeAllocator` globally; the default standard backend reuses the application's existing global allocator.
+`unimemory::Vec/Box` come from allocator-api2. To route standard collections through the selected backend, register the built-in adapter — one line, no wrapper types:
+
+```rust
+#[global_allocator]
+static ALLOCATOR: unimemory::NativeAllocator = unimemory::NativeAllocator;
+```
+
+With `mimalloc` or `jemalloc` this replaces the allocator for the whole process; the default standard backend already reuses the application's existing global allocator, so the line forwards to Rust's `System` there. See [`examples/global_allocator.rs`](examples/global_allocator.rs).
 
 ## Backends
 

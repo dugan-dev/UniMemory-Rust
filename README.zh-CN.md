@@ -68,7 +68,14 @@ values.extend(0u64..1024);
 assert_eq!(memory.statistics().live_bytes, values.capacity() * 8);
 ```
 
-`unimemory::Vec/Box` 是 allocator-api2 容器。标准容器可通过 `NativeAllocator` 接入全局分配器；已有全局分配器时，默认的 standard 后端直接复用它。
+`unimemory::Vec/Box` 是 allocator-api2 容器。要让标准容器走所选后端，注册内置适配器即可——一行，无需包装类型：
+
+```rust
+#[global_allocator]
+static ALLOCATOR: unimemory::NativeAllocator = unimemory::NativeAllocator;
+```
+
+选择 `mimalloc` 或 `jemalloc` 时，这会替换整个进程的分配器；默认的 standard 后端本来就复用应用已有的全局分配器，此时该行等价于转发到 Rust `System`。示例见 [`examples/global_allocator.rs`](examples/global_allocator.rs)。
 
 ## 后端
 
