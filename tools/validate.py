@@ -14,13 +14,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--backend",
-        choices=("all", "rust", "standard", "mimalloc", "jemalloc"),
+        choices=("all", "standard", "mimalloc", "jemalloc"),
         default="all",
     )
     parser.add_argument("--jemalloc-prefix", type=Path)
     args = parser.parse_args()
     backends = (
-        ["rust", "standard", "mimalloc", "jemalloc"]
+        ["standard", "mimalloc", "jemalloc"]
         if args.backend == "all"
         else [args.backend]
     )
@@ -80,10 +80,10 @@ def main():
 
     run("format", ["cargo", "fmt", "--package", "unimemory", "--check"])
     for backend in backends:
-        flags = ["--features", backend] if backend != "rust" else []
+        flags = ["--features", backend] if backend != "standard" else []
         run(f"{backend}-debug", ["cargo", "test", "--locked", *flags])
         run(f"{backend}-release", ["cargo", "test", "--locked", "--release", *flags])
-        features = "containers" + (f",{backend}" if backend != "rust" else "")
+        features = "containers" + (f",{backend}" if backend != "standard" else "")
         run(
             f"{backend}-statistics-off",
             [
@@ -126,9 +126,9 @@ def main():
             ],
             consumer_env,
         )
-        if backend == "rust":
+        if backend == "standard":
             run(
-                "rust-existing-allocator",
+                "standard-existing-allocator",
                 [
                     "cargo",
                     "run",
@@ -140,7 +140,7 @@ def main():
             )
     run("minimal", ["cargo", "test", "--locked", "--no-default-features"])
     invalid = subprocess.run(
-        ["cargo", "check", "--locked", "--features", "rust,standard"],
+        ["cargo", "check", "--locked", "--features", "standard,mimalloc"],
         cwd=ROOT,
         env=env,
         capture_output=True,

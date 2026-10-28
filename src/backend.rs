@@ -6,33 +6,14 @@ pub(crate) const NAME: &str = "mimalloc";
 #[cfg(all(feature = "jemalloc", not(feature = "mimalloc")))]
 pub(crate) const NAME: &str = "jemalloc";
 #[cfg(not(any(feature = "mimalloc", feature = "jemalloc")))]
-pub(crate) const NAME: &str = if cfg!(feature = "standard") {
-    "standard"
-} else {
-    "rust"
-};
+pub(crate) const NAME: &str = "standard";
 
 #[cfg(not(any(feature = "mimalloc", feature = "jemalloc")))]
 mod selected {
     use super::*;
-    #[cfg(feature = "standard")]
-    unsafe extern "C" {
-        fn unimemory_standard_allocate(bytes: usize, alignment: usize) -> *mut u8;
-        fn unimemory_standard_deallocate(pointer: *mut u8, alignment: usize);
-    }
     #[inline]
     pub unsafe fn allocate(layout: Layout, zeroed: bool) -> *mut u8 {
-        // SAFETY: callers supply a nonzero valid layout.
-        #[cfg(feature = "standard")]
-        unsafe {
-            let pointer = unimemory_standard_allocate(layout.size(), layout.align());
-            if zeroed && !pointer.is_null() {
-                pointer.write_bytes(0, layout.size());
-            }
-            pointer
-        }
-        // SAFETY: Rust's selected global allocator receives a valid nonzero layout.
-        #[cfg(not(feature = "standard"))]
+        // SAFETY: callers supply a nonzero valid layout for the application's global allocator.
         unsafe {
             if zeroed {
                 std::alloc::alloc_zeroed(layout)
@@ -43,34 +24,15 @@ mod selected {
     }
     #[inline]
     pub unsafe fn deallocate(pointer: *mut u8, layout: Layout) {
-        // SAFETY: pointer and layout originate from the matching Standard bridge above.
-        #[cfg(feature = "standard")]
-        unsafe {
-            unimemory_standard_deallocate(pointer, layout.align());
-        }
-        // SAFETY: pointer comes from Rust's selected global allocator with the same layout.
-        #[cfg(not(feature = "standard"))]
+        // SAFETY: pointer and layout originate from the application's global allocator.
         unsafe {
             std::alloc::dealloc(pointer, layout);
         }
     }
     #[inline]
     pub unsafe fn resize(pointer: *mut u8, old: Layout, new: Layout) -> *mut u8 {
-        // SAFETY: caller guarantees allocation identity, unchanged alignment and nonzero sizes.
-        #[cfg(feature = "standard")]
-        unsafe {
-            let next = allocate(new, false);
-            if !next.is_null() {
-                std::ptr::copy_nonoverlapping(pointer, next, old.size().min(new.size()));
-                deallocate(pointer, old);
-            }
-            next
-        }
-        // SAFETY: caller guarantees a live global allocation and a valid nonzero new size.
-        #[cfg(not(feature = "standard"))]
-        unsafe {
-            std::alloc::realloc(pointer, old, new.size())
-        }
+        // SAFETY: caller guarantees a live allocation, unchanged alignment and nonzero sizes.
+        unsafe { std::alloc::realloc(pointer, old, new.size()) }
     }
     pub struct NativeHeap;
     impl NativeHeap {

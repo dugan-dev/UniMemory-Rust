@@ -122,14 +122,14 @@ unsafe impl Memory for Global {
 }
 
 /// Zero-state direct backend adapter, without per-resource tracking.
-/// Implements `GlobalAlloc` for every backend. When explicitly registered in Rust
-/// mode, it delegates to Rust System to avoid recursion. Ordinary Rust-mode resources
-/// continue to honor whatever global allocator the application has already registered.
+/// Implements `GlobalAlloc` for every backend. In the standard backend it forwards
+/// straight to Rust's `System`, so registering it as the application allocator cannot
+/// recurse; native backends call their fixed C API instead.
 pub struct NativeAllocator;
 
 // SAFETY: all GlobalAlloc requests are forwarded to matching native functions;
 // failures return null and none of these paths allocate Rust metadata or unwind.
-#[cfg(any(feature = "standard", feature = "mimalloc", feature = "jemalloc"))]
+#[cfg(any(feature = "mimalloc", feature = "jemalloc"))]
 unsafe impl std::alloc::GlobalAlloc for NativeAllocator {
     #[inline]
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
@@ -157,9 +157,9 @@ unsafe impl std::alloc::GlobalAlloc for NativeAllocator {
     }
 }
 
-// SAFETY: explicit Rust-mode global registration must not call the global allocator again.
+// SAFETY: standard-backend global registration must not call the global allocator again.
 // Forwarding every matching allocation pair directly to System avoids recursion and metadata.
-#[cfg(not(any(feature = "standard", feature = "mimalloc", feature = "jemalloc")))]
+#[cfg(not(any(feature = "mimalloc", feature = "jemalloc")))]
 unsafe impl std::alloc::GlobalAlloc for NativeAllocator {
     #[inline]
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {

@@ -1,5 +1,5 @@
-//! Rust mode must honor an application's existing global allocator.
-#![cfg(not(any(feature = "standard", feature = "mimalloc", feature = "jemalloc")))]
+//! The default standard backend must honor an application's existing global allocator.
+#![cfg(not(any(feature = "mimalloc", feature = "jemalloc")))]
 use std::{
     alloc::{GlobalAlloc, Layout, System},
     sync::atomic::{AtomicUsize, Ordering},
@@ -28,7 +28,7 @@ unsafe impl GlobalAlloc for Counting {
 static ALLOCATOR: Counting = Counting;
 
 #[test]
-fn selected_rust_backend_uses_the_app_allocator() {
+fn selected_standard_backend_uses_the_app_allocator() {
     let global = Global::new();
     let before = CALLS.load(Ordering::Relaxed);
     let mut bytes = global.allocate_zeroed(Layout::new::<[u8; 256]>()).unwrap();

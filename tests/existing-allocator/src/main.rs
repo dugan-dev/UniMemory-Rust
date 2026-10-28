@@ -4,7 +4,7 @@ use unimemory::{Global, Heap, Memory, MemoryExt, StatisticsMode};
 static ALLOCATOR: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
 fn main() -> unimemory::Result<()> {
-    assert_eq!(unimemory::BACKEND, "rust");
+    assert_eq!(unimemory::BACKEND, "standard");
     let resource = Global::with_statistics(StatisticsMode::Basic)?;
     {
         let value = resource.create(String::from("existing allocator"))?;
@@ -17,6 +17,6 @@ fn main() -> unimemory::Result<()> {
         assert_eq!(array[127], 16129);
     }
     heap.reset()?;
-    println!("Rust backend reused the existing mimalloc global allocator");
+    println!("Standard backend reused the existing mimalloc global allocator");
     Ok(())
 }

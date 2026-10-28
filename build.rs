@@ -2,14 +2,6 @@
 use std::{env, path::PathBuf};
 
 fn main() {
-    println!("cargo:rerun-if-changed=native/standard.cpp");
-    if env::var_os("CARGO_FEATURE_STANDARD").is_some() {
-        cc::Build::new()
-            .cpp(true)
-            .std("c++17")
-            .file("native/standard.cpp")
-            .compile("unimemory-standard");
-    }
     println!("cargo:rerun-if-env-changed=UNIMEMORY_JEMALLOC_DIR");
     println!("cargo:rerun-if-env-changed=VCPKG_ROOT");
     if env::var_os("CARGO_FEATURE_JEMALLOC").is_none()

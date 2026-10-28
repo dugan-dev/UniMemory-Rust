@@ -1,6 +1,6 @@
 //! Unified memory resources for Rust.
 //!
-//! Choose Rust (default), `standard`, `mimalloc`, or `jemalloc` at compile time. Memory
+//! Choose `standard` (default), `mimalloc` or `jemalloc` at compile time. Memory
 //! owners borrow their resource, so safe code cannot reset it while it is used.
 //!
 //! ```
@@ -19,14 +19,10 @@
 //! ```
 
 #[cfg(any(
-    all(
-        feature = "rust",
-        any(feature = "standard", feature = "mimalloc", feature = "jemalloc")
-    ),
     all(feature = "standard", any(feature = "mimalloc", feature = "jemalloc")),
     all(feature = "mimalloc", feature = "jemalloc")
 ))]
-compile_error!("Select exactly one backend: rust, standard, mimalloc OR jemalloc");
+compile_error!("Select exactly one backend: standard, mimalloc OR jemalloc");
 
 mod backend;
 mod block;

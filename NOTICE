@@ -23,6 +23,7 @@ MIT/Apache-2.0 wrapper; native jemalloc BSD-2-Clause. Licenses remain in submodu
 Windows MSVC uses a separately built prefixed jemalloc SDK; no SDK binaries are
 committed. Redistribution of such binaries must retain the selected SDK notices.
 
-The Standard backend's small C ABI bridge is original project code, MIT licensed.
-The cc crate is a Cargo build dependency, MIT OR Apache-2.0. Cargo.lock fixes the
-resolved build-tool dependencies. Optional chart generation uses matplotlib.
+The Standard backend uses only the Rust standard library allocator; no C++ bridge
+is compiled. The cc crate is a transitive build dependency of libmimalloc-sys and
+tikv-jemalloc-sys, MIT OR Apache-2.0. Cargo.lock fixes the resolved build-tool
+dependencies. Optional chart generation uses matplotlib.

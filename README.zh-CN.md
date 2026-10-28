@@ -2,7 +2,7 @@
 
 [![Rust](https://img.shields.io/badge/Rust-1.85%2B-orange.svg)](Cargo.toml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-统一 Rust、Standard、mimalloc 和 jemalloc 的内存分配接口。编译时选择后端，使用 Global、Heap、Stack 管理内存。
+统一 Standard、mimalloc 和 jemalloc 的内存分配接口。编译时选择后端，使用 Global、Heap、Stack 管理内存。
 
 [English](README.md) · **简体中文**
 
@@ -68,14 +68,13 @@ values.extend(0u64..1024);
 assert_eq!(memory.statistics().live_bytes, values.capacity() * 8);
 ```
 
-`unimemory::Vec/Box` 是 allocator-api2 容器。标准容器可通过 `NativeAllocator` 接入全局分配器；已有全局分配器时，Rust 后端直接复用它。
+`unimemory::Vec/Box` 是 allocator-api2 容器。标准容器可通过 `NativeAllocator` 接入全局分配器；已有全局分配器时，默认的 standard 后端直接复用它。
 
 ## 后端
 
 | Cargo feature | Global | Heap | Stack |
 | --- | --- | --- | --- |
-| 默认 / `rust` | Rust 应用分配器 | Rust 分配组 | 借用缓冲区 |
-| `standard` | C++ new/delete | Standard 分配组 | 借用缓冲区 |
+| `standard`（默认） | Rust 应用分配器 | Standard 分配组 | 借用缓冲区 |
 | `mimalloc` | mimalloc | 原生 heap | 借用缓冲区 |
 | `jemalloc` | jemalloc | 独立 arena | 借用缓冲区 |
 
@@ -92,7 +91,7 @@ unimemory = { git = "https://github.com/dugan-dev/UniMemory-Rust", features = ["
 
 Windows x64 实测，原生与封装使用相同 SDK 和编译配置，统计关闭。浅色为原生，深色为封装，耗时越低越快。
 
-![四后端原生与封装性能](docs/images/workloads.zh-CN.png)
+![三后端原生与封装性能](docs/images/workloads.zh-CN.png)
 
 ## 构建与测试
 
@@ -103,7 +102,7 @@ cargo run --example basic
 cargo test --locked
 ```
 
-要求 Rust 1.85+。mimalloc 需要 C 编译器；Standard 需要 C++17 编译器；jemalloc 还需原生构建工具，Windows 使用独立 SDK。私人仓库需有访问权限。
+要求 Rust 1.85+。mimalloc 需要 C 编译器；jemalloc 还需原生构建工具，Windows 使用独立 SDK。
 
 ## 文档
 

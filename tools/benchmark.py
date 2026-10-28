@@ -17,7 +17,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BACKENDS = ("rust", "standard", "mimalloc", "jemalloc")
+BACKENDS = ("standard", "mimalloc", "jemalloc")
 
 
 def run(command, *, env=None):
@@ -102,8 +102,7 @@ def render(summary, destination):
         }
     )
     colors = {
-        "rust": "#2563eb",
-        "standard": "#64748b",
+        "standard": "#2563eb",
         "mimalloc": "#16a34a",
         "jemalloc": "#c76a12",
     }
@@ -127,8 +126,7 @@ def render(summary, destination):
             mapping = {
                 "Native": "原生",
                 "UniMemory": "封装",
-                "Rust": "Rust 默认",
-                "Standard": "Standard (C++)",
+                "Standard": "Standard（默认）",
                 "Global 64 B": "Global · 64 B",
                 "Zeroed 64 B": "清零分配 · 64 B",
                 "Resize 64→512 B": "扩容 · 64→512 B",
@@ -334,8 +332,8 @@ def write_report(summary, results):
         "",
         "每格为 **原生 / 封装** 的中位数，覆盖所有已测项目。",
         "",
-        "| 操作 · 字节 · 对齐 | Rust | Standard | mimalloc | jemalloc |",
-        "| --- | ---: | ---: | ---: | ---: |",
+        "| 操作 · 字节 · 对齐 | Standard | mimalloc | jemalloc |",
+        "| --- | ---: | ---: | ---: |",
     ]
     for key in keys:
         cells = [
@@ -347,9 +345,9 @@ def write_report(summary, results):
         "",
         "## Scope / 范围",
         "",
-        "- Rust：当前应用全局分配器；本次基准未替换它。Standard：C++ new/delete；不是 Rust System 的别名。",
+        "- Standard：Rust System，即应用当前全局分配器；本次基准未替换它。",
         "- mimalloc 3.3.2、jemalloc 5.3.1。原生和封装共享同一份 SDK 和相同参数；Windows 原生库统一静态链接、动态 MSVC CRT。",
-        "- Heap：mimalloc/ jemalloc 对比原生 heap/arena；Rust/Standard 没有同等原生分配组，基线为普通分配，封装额外提供分组回收。",
+        "- Heap：mimalloc/ jemalloc 对比原生 heap/arena；Standard 没有同等原生分配组，基线为普通分配，封装额外提供分组回收。",
         "- Stack：对比最小固定缓冲区控制，封装另有容量、检查点和生命周期规则；不调用上述原生堆后端。",
         "- vector：两侧均使用 allocator-api2 Vec、相同预留、填充和销毁；原生侧直接调用选定后端，不混用默认 Vec。",
         "- 同一可执行文件中先预热再交错计时；多进程后端顺序固定种子打乱；记录 CPU 绑定、源码/二进制/SDK 哈希和完整试验。",
@@ -402,7 +400,7 @@ def main():
     binaries = {}
     for backend in BACKENDS:
         print(f"Building {backend} Release profile", flush=True)
-        features = "benchmark" + (f",{backend}" if backend != "rust" else "")
+        features = "benchmark" + (f",{backend}" if backend != "standard" else "")
         command = [
             "cargo",
             "bench",

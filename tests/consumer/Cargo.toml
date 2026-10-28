@@ -8,7 +8,6 @@ publish = false
 unimemory = { path = "../.." }
 
 [features]
-rust = ["unimemory/rust"]
 standard = ["unimemory/standard"]
 mimalloc = ["unimemory/mimalloc"]
 jemalloc = ["unimemory/jemalloc"]

@@ -2,7 +2,7 @@
 
 [![Rust](https://img.shields.io/badge/Rust-1.85%2B-orange.svg)](Cargo.toml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Unified memory allocation with Rust, Standard, mimalloc or jemalloc. Select a backend at build time and manage memory through Global, Heap and Stack.
+Unified memory allocation with Standard, mimalloc or jemalloc. Select a backend at build time and manage memory through Global, Heap and Stack.
 
 **English** · [简体中文](README.zh-CN.md)
 
@@ -68,14 +68,13 @@ values.extend(0u64..1024);
 assert_eq!(memory.statistics().live_bytes, values.capacity() * 8);
 ```
 
-`unimemory::Vec/Box` come from allocator-api2. Standard containers can use `NativeAllocator` globally; Rust-mode resources reuse the application's existing global allocator.
+`unimemory::Vec/Box` come from allocator-api2. Standard containers can use `NativeAllocator` globally; the default standard backend reuses the application's existing global allocator.
 
 ## Backends
 
 | Cargo feature | Global | Heap | Stack |
 | --- | --- | --- | --- |
-| Default / `rust` | Rust application allocator | Rust allocation group | Borrowed buffer |
-| `standard` | C++ new/delete | Standard allocation group | Borrowed buffer |
+| `standard` (default) | Rust application allocator | Standard allocation group | Borrowed buffer |
 | `mimalloc` | mimalloc | Native heap | Borrowed buffer |
 | `jemalloc` | jemalloc | Dedicated arena | Borrowed buffer |
 
@@ -92,7 +91,7 @@ Container and statistics support are compiled by default; per-resource statistic
 
 Measured on Windows x64 with identical native SDKs and build settings, statistics off. Light bars are native; solid bars are UniMemory. Lower times are faster.
 
-![Native and wrapped performance across four backends](docs/images/workloads.png)
+![Native and wrapped performance across three backends](docs/images/workloads.png)
 
 ## Build and Test
 
@@ -103,7 +102,7 @@ cargo run --example basic
 cargo test --locked
 ```
 
-Rust 1.85+ is required. mimalloc needs a C compiler; Standard needs a C++17 compiler; jemalloc requires native build tools and a separate SDK on Windows. Access to the private repository is required.
+Rust 1.85+ is required. mimalloc needs a C compiler; jemalloc requires native build tools and a separate SDK on Windows.
 
 ## Documentation
 
